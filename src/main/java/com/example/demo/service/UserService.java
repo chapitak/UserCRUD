@@ -32,8 +32,8 @@ public class UserService {
         return users.get(updateUserRequest.getId());
     }
 
-    public User delete() {
-        return users.get(id);
+    public void delete(Long id) {
+        users.remove(id);
     }
 }
 

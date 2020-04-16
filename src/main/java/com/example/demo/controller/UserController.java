@@ -42,9 +42,10 @@ public class UserController {
         return userService.update(updateUserRequest);
     }
 
-    @DeleteMapping("users")
-    @RequestMapping(value = "/users", method = RequestMethod.DELETE)
-    public String deleteAllUsers() {
+    @DeleteMapping("/users/{id}")
+    //@RequestMapping(value = "/users", method = RequestMethod.DELETE)
+    public String deleteAllUsers(@PathVariable Long id) {
+        userService.delete(id);
         return "delete";
     }
 }
