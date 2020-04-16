@@ -38,8 +38,8 @@ public class UserController {
 
 //    @RequestMapping(value = "/users", method = RequestMethod.PUT)
     @PutMapping("users")
-    public String putAllUsers() {
-        return "put world";
+    public User putAllUsers(@RequestBody UpdateUserRequest updateUserRequest) {
+        return userService.update(updateUserRequest);
     }
 
     @DeleteMapping("users")

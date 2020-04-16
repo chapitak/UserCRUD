@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.controller.CreateduserRequest;
+import com.example.demo.controller.UpdateUserRequest;
 import com.example.demo.domain.User;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,11 @@ public class UserService {
     }
 
 
-    public User update() {
-        return users.get(id);
+    public User update(UpdateUserRequest updateUserRequest) {
+        User newUser = User.of(updateUserRequest.getId(), updateUserRequest.getName(), updateUserRequest.getPassword());
+        users.put(updateUserRequest.getId(), newUser);
+
+        return users.get(updateUserRequest.getId());
     }
 
     public User delete() {
