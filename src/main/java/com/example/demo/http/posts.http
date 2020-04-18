@@ -1,0 +1,14 @@
+POST http://localhost:8080/posts
+Content-Type: application/json
+
+{
+"content":  "hello",
+"authorId":  0
+}
+
+
+###
+GET http://localhost:80/api/item?id=99
+Accept: application/json
+
+###

@@ -5,7 +5,6 @@ import com.example.demo.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import java.util.Map;
 
 //유저와 관련된 모든 일들의 시작, View와 Controller가 만나는 지점이자, 어떤 도메인의 진입점이다.
 @RestController
@@ -32,8 +31,8 @@ public class UserController {
 
     @PostMapping("users")   //@RequestBody 안붙여도 된다그러지않았나.. 이보시오
 //    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public User postAllUsers(@RequestBody CreateduserRequest createduserRequest) {
-        return userService.create(createduserRequest);
+    public User postAllUsers(@RequestBody CreateUserRequest createUserRequest) {
+        return userService.create(createUserRequest);
     }
 
 //    @RequestMapping(value = "/users", method = RequestMethod.PUT)

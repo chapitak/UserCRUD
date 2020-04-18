@@ -1,0 +1,12 @@
+GET http://localhost:8080/users/0
+Accept: application/json
+
+###
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "조광일"
+}
+
+###

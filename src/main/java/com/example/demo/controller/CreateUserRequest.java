@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import lombok.Getter;
 import lombok.Setter;
 
-public class CreateduserRequest {
+public class CreateUserRequest {
     private String name;
     private String password;
 
@@ -15,7 +15,7 @@ public class CreateduserRequest {
         return password;
     }
 
-    public CreateduserRequest(String name, String password) {
+    public CreateUserRequest(String name, String password) {
         this.name = name;
         this.password = password;
     }
