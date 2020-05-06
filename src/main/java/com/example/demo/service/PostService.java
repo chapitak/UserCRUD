@@ -22,34 +22,32 @@ public class PostService {
     }
 
     public Post create(CreatePostRequest createPostRequest) {
-        User author = userService.get(createPostRequest.getAuthorId))
+        User author = userService.getUsers().get(createPostRequest.getAuthorId());
         Post post = Post.builder()
                 .id(nextId)
-                .content(createPostRequest.getContent())
-                .viewCount(0L)
-                .likeCount(0L)
-                .author(createPostRequest.getAuthorId())
-                .createdAt(LocalDateTime.now())
-                .modifiedAt(LocalDateTime.now())
+                .contents(createPostRequest.getContent())
+                .author(author)
+//                .createdAt(LocalDateTime.now())
+//                .modifiedAt(LocalDateTime.now())
                 .build();
 
-        posts.put(post.get(), post);
+        posts.put(post.getId(), post);
         nextId++;
         return post;
     }
 
     public Post get(Long id) {
-        if (posts.containtsKey(id)) {
+        if (posts.containsKey(id)) {
             return posts.get(id);
         }
         throw new IllegalArgumentException();
     }
 
-    public Post update() {
-
-    }
-
-    public Post delete() {
-
-    }
+//    public Post update() {
+//
+//    }
+//
+//    public Post delete() {
+//
+//    }
 }
