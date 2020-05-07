@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.controller.CreatePostRequest;
+import com.example.demo.controller.UpdatePostRequest;
 import com.example.demo.domain.Post;
 import com.example.demo.domain.User;
 import org.springframework.stereotype.Service;
@@ -36,18 +37,22 @@ public class PostService {
         return post;
     }
 
-    public Post get(Long id) {
+    public Post read(Long id) {
         if (posts.containsKey(id)) {
             return posts.get(id);
         }
         throw new IllegalArgumentException();
     }
 
-//    public Post update() {
-//
-//    }
-//
-//    public Post delete() {
-//
-//    }
+    public Post update(UpdatePostRequest updatePostRequest) {
+        Post newPost = Post.of(updatePostRequest.getId(), updatePostRequest.getContents(), updatePostRequest.getAuthor());
+        posts.put(updatePostRequest.getId(), newPost);
+
+        return posts.get(updatePostRequest.getId());
+    }
+
+    public void delete(Long id) {
+        posts.remove(id);
+
+    }
 }
