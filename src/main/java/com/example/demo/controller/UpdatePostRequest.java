@@ -12,7 +12,7 @@ public class UpdatePostRequest {
     public UpdatePostRequest(long id, String contents, User author) {
         this.id = id;
         this.contents = contents;
-        this.
+        this.author = author;
 
     }
 }

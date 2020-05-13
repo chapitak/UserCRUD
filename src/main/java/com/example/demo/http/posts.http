@@ -6,9 +6,24 @@ Content-Type: application/json
 "authorId":  0
 }
 
-
 ###
-GET http://localhost:80/api/item?id=99
+GET http://localhost:8080/posts/0
 Accept: application/json
 
 ###
+
+###
+PUT http://localhost:8080/posts
+Content-Type: application/json
+
+{
+  "id" : 0,
+  "contents": "조광일0"
+}
+
+###
+DELETE http://localhost:8080/posts/0
+Accept: application/json
+
+###
+

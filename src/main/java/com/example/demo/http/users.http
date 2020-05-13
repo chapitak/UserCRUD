@@ -10,3 +10,17 @@ Content-Type: application/json
 }
 
 ###
+###
+PUT http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "id" : 0,
+  "name": "조광일0"
+}
+
+###
+DELETE http://localhost:8080/users/0
+Accept: application/json
+
+###
