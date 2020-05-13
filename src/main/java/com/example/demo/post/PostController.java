@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.example.demo.post;
 
-import com.example.demo.domain.Post;
-import com.example.demo.service.PostService;
+import com.example.demo.post.dto.CreatePostRequest;
+import com.example.demo.post.dto.UpdatePostRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

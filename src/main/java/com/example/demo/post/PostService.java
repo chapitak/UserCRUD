@@ -1,13 +1,11 @@
-package com.example.demo.service;
+package com.example.demo.post;
 
-import com.example.demo.controller.CreatePostRequest;
-import com.example.demo.controller.UpdatePostRequest;
-import com.example.demo.domain.Post;
-import com.example.demo.domain.User;
+import com.example.demo.post.dto.CreatePostRequest;
+import com.example.demo.post.dto.UpdatePostRequest;
+import com.example.demo.user.User;
+import com.example.demo.user.UserService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 

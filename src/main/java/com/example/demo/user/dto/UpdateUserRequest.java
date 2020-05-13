@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ public class UpdateUserRequest {
     private String name;
     private String password;
 
-   public UpdateUserRequest(Long id, String name, String password) {
+    public UpdateUserRequest(Long id, String name, String password) {
         this.id = id;
         this.name = name;
         this.password = password;

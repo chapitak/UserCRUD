@@ -15,7 +15,7 @@ PUT http://localhost:8080/users
 Content-Type: application/json
 
 {
-  "id" : 0,
+  "id": 0,
   "name": "조광일0"
 }
 

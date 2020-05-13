@@ -1,6 +1,6 @@
-package com.example.demo.controller;
+package com.example.demo.post.dto;
 
-import com.example.demo.domain.User;
+import com.example.demo.user.User;
 import lombok.Getter;
 
 @Getter
