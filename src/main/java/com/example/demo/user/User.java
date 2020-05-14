@@ -3,6 +3,7 @@ package com.example.demo.user;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 
 //CRUD
@@ -21,5 +22,9 @@ public class User {
         this.email = email;
         this.password = password;
         this.name = name;
+    }
+
+    public boolean matchPassword(String encryptedPasswordQuery) throws NoSuchAlgorithmException {
+        return encryptedPasswordQuery == PasswordEncryptor.encrypt(password);
     }
 }
