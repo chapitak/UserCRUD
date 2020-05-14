@@ -9,13 +9,13 @@ import java.security.NoSuchAlgorithmException;
 public class PasswordEncryptor {
 
 
-    public static String encrypt(String password) throws NoSuchAlgorithmException {
+    public static String encrypt(String password) {
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA_256");
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
             messageDigest.update(messageDigest.digest());;
             return bytesToHex(messageDigest.digest());
         } catch (NoSuchAlgorithmException e) {
-            throw new NoSuchAlgorithmException("there is no salgorithm");
+            throw new IllegalArgumentException("there is no salgorithm");
         }
     }
 

@@ -8,6 +8,7 @@ import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 //얘가 CRUD해야 한다. Controller와 만나는 지점이자 어떤 도메인이 수행할 비즈니스 로직이 존재하는 곳이다.
@@ -60,7 +61,7 @@ public class UserService {
         users.remove(id);
     }
 
-    public void login(HttpSession httpSession, LoginRequest loginRequest) {
+    public void login(HttpSession httpSession, LoginRequest loginRequest){
         Object loginUserAttr = httpSession.getAttribute("LOGIN_USER");
         if (loginUserAttr == null) {
             System.out.println("not logined.");

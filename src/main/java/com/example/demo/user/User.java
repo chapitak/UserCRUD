@@ -24,7 +24,7 @@ public class User {
         this.name = name;
     }
 
-    public boolean matchPassword(String encryptedPasswordQuery) throws NoSuchAlgorithmException {
-        return encryptedPasswordQuery == PasswordEncryptor.encrypt(password);
+    public boolean matchPassword(String encryptedPasswordQuery) {
+        return encryptedPasswordQuery.equals(PasswordEncryptor.encrypt(password));
     }
 }
