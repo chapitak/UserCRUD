@@ -54,4 +54,9 @@ public class UserController {
     public void login(HttpSession httpSession, @RequestBody LoginRequest loginRequest) {
         userService.login(httpSession, loginRequest);
     }
+
+    @PostMapping("users/logout")
+    public void logout(HttpSession httpSession, @RequestBody LoginRequest loginRequest) {
+        userService.logout(httpSession, loginRequest);
+    }
 }

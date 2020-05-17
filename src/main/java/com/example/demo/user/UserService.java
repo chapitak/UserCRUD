@@ -85,5 +85,9 @@ public class UserService {
                 .findAny()
                 .orElseThrow(IllegalArgumentException::new);
     }
+
+    public void logout(HttpSession httpSession, LoginRequest loginRequest) {
+        httpSession.removeAttribute("LOGIN_USER");
+    }
 }
 
