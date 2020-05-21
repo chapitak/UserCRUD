@@ -6,19 +6,18 @@ import com.example.demo.user.User;
 import com.example.demo.user.UserService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 // TODO: Service -> Controller로 변환되는 값들은 가급적 DTO!
 @Service
 public class PostService {
     private UserService userService;
-    private Map<Long, Post> posts = new HashMap<>();
+//    private Map<Long, Post> posts = new HashMap<>();
+    private final PostRepository postRepository;
     private Long nextId = 0L;
 
-    public PostService(UserService userService) {
-        this.userService = userService;
+    public PostService(PostRepository postRepository) {
+        this.postRepository = postRepository;
     }
+
 
     public Post create(CreatePostRequest createPostRequest) {
         User author = userService.getUsers().get(createPostRequest.getAuthorId());
@@ -26,31 +25,23 @@ public class PostService {
                 .id(nextId)
                 .contents(createPostRequest.getContent())
                 .author(author)
-//                .createdAt(LocalDateTime.now())
-//                .modifiedAt(LocalDateTime.now())
                 .build();
 
-        posts.put(post.getId(), post);
+        postRepository.save(post);
         nextId++;
         return post;
     }
 
     public Post read(Long id) {
-        if (posts.containsKey(id)) {
-            return posts.get(id);
-        }
-        throw new IllegalArgumentException();
+        return postRepository.getOne(id);
     }
 
-    public Post update(UpdatePostRequest updatePostRequest) {
+    public void update(UpdatePostRequest updatePostRequest) {
         Post newPost = Post.of(updatePostRequest.getId(), updatePostRequest.getContents(), updatePostRequest.getAuthor());
-        posts.put(updatePostRequest.getId(), newPost);
-
-        return posts.get(updatePostRequest.getId());
+        postRepository.save(newPost);
     }
 
     public void delete(Long id) {
-        posts.remove(id);
-
+        postRepository.delete(postRepository.getOne(id));
     }
 }

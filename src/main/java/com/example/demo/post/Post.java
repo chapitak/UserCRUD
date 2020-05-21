@@ -3,16 +3,21 @@ package com.example.demo.post;
 import com.example.demo.user.User;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
+@Entity
 public class Post {
+    @Id
     private Long id;
     private String contents;
     private int viewCount;
     private int likeCount;
-    private User author;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
@@ -22,7 +27,6 @@ public class Post {
         this.contents = contents;
         this.viewCount = 0;
         this.likeCount = 0;
-        this.author = author;
         this.createdAt = LocalDateTime.now();
         this.modifiedAt = LocalDateTime.now();
     }

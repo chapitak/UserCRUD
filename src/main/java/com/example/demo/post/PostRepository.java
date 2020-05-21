@@ -1,12 +1,14 @@
 package com.example.demo.post;
 
-public interface PostRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    Post create(Post post);
+public interface PostRepository extends JpaRepository<Post, Long> {
 
-    Post getById(Long id);
-
-    Post update(Post post);
-
-    boolean delete(Long id);
+//    Post create(Post post);
+//
+//    Post getById(Long id);
+//
+//    Post update(Post post);
+//
+//    boolean delete(Long id);
 }

@@ -18,14 +18,14 @@ public class PostController {
         return postService.read(id);
     }
 
-    @PostMapping("posts")   //@RequestBody 안붙여도 된다그러지않았나.. 이보시오
+    @PostMapping("posts")
     public Post createPost(@RequestBody CreatePostRequest createPostRequest) {
         return postService.create(createPostRequest);
     }
 
     @PutMapping("posts")
-    public Post putPost(@RequestBody UpdatePostRequest updatePostRequest) {
-        return postService.update(updatePostRequest);
+    public void putPost(@RequestBody UpdatePostRequest updatePostRequest) {
+        postService.update(updatePostRequest);
     }
 
     @DeleteMapping("/posts/{id}")
