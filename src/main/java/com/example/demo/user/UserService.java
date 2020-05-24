@@ -8,15 +8,18 @@ import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 
 //얘가 CRUD해야 한다. Controller와 만나는 지점이자 어떤 도메인이 수행할 비즈니스 로직이 존재하는 곳이다.
 @Getter
 @Service
 public class UserService {
-    private HashMap<Long, User> users = new HashMap<>();
+    private UserRepository userRepository;
+//    private HashMap<Long, User> users = new HashMap<>();
     private Long nextId = 0L;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public UserResponse create(CreateUserRequest createUserRequest) {
         User newUser = User.builder()
@@ -25,7 +28,8 @@ public class UserService {
                 .password(createUserRequest.getPassword())
                 .name(createUserRequest.getName())
                 .build();
-        users.put(newUser.getId(), newUser);
+        userRepository.save(newUser);
+//        users.put(newUser.getId(), newUser);
         nextId++;
 
         return getUserResponse(newUser);
@@ -38,11 +42,12 @@ public class UserService {
                 .build();
     }
 
-    public UserResponse get(Long id) {
-        if (users.containsKey(id)) {
-            return getUserResponse(users.get(id));
-        }
-        throw new IllegalArgumentException("해당 ID의 사용자가 없습니다");
+    public User get(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 ID의 사용자가 없습니다"));
+    }
+
+    public UserResponse read(Long id) {
+        return getUserResponse(userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 ID의 사용자가 없습니다")));
     }
 
     public UserResponse update(UpdateUserRequest updateUserRequest) {
@@ -52,13 +57,13 @@ public class UserService {
                 .name((updateUserRequest.getName()))
                 .password(updateUserRequest.getPassword())
                 .build();
-        users.put(updateUserRequest.getId(), newUser);
+        userRepository.save(newUser);
 
-        return getUserResponse(users.get(updateUserRequest.getId()));
+        return getUserResponse(newUser);
     }
 
     public void delete(Long id) {
-        users.remove(id);
+        userRepository.delete(userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 ID의 사용자가 없습니다")));
     }
 
     public void login(HttpSession httpSession, LoginRequest loginRequest){
@@ -80,13 +85,10 @@ public class UserService {
     }
 
     private User getByEmail(String email) {
-        return users.values().stream()
-                .filter(user -> user.getEmail().equals(email))
-                .findAny()
-                .orElseThrow(IllegalArgumentException::new);
+        return userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("해당 ID의 사용자가 없습니다"));
     }
 
-    public void logout(HttpSession httpSession, LoginRequest loginRequest) {
+    public void logout(HttpSession httpSession) {
         httpSession.removeAttribute("LOGIN_USER");
     }
 }

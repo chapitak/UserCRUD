@@ -29,7 +29,7 @@ public class UserController {
     public UserResponse get(@PathVariable Long id) {
         //컨트롤러에서 서비스로 어떻게 가야하지? 1. static으로 만들까? 2. 객체를 갖고 있자!
         System.out.println("id=" + id);
-        return userService.get(id);
+        return userService.read(id);
     }
 
     @PostMapping("users")   //@RequestBody 안붙여도 된다그러지않았나.. 이보시오
@@ -57,6 +57,6 @@ public class UserController {
 
     @PostMapping("users/logout")
     public void logout(HttpSession httpSession, @RequestBody LoginRequest loginRequest) {
-        userService.logout(httpSession, loginRequest);
+        userService.logout(httpSession);
     }
 }

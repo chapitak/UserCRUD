@@ -14,13 +14,13 @@ public class PostService {
     private final PostRepository postRepository;
     private Long nextId = 0L;
 
-    public PostService(PostRepository postRepository) {
+    public PostService(UserService userService, PostRepository postRepository) {
+        this.userService = userService;
         this.postRepository = postRepository;
     }
 
-
     public Post create(CreatePostRequest createPostRequest) {
-        User author = userService.getUsers().get(createPostRequest.getAuthorId());
+        User author = userService.get(createPostRequest.getAuthorId());
         Post post = Post.builder()
                 .id(nextId)
                 .contents(createPostRequest.getContent())
