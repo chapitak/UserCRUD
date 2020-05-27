@@ -2,7 +2,10 @@ package com.example.demo.post;
 
 import com.example.demo.post.dto.CreatePostRequest;
 import com.example.demo.post.dto.UpdatePostRequest;
+import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @RestController
 public class PostController {
@@ -33,4 +36,10 @@ public class PostController {
         postService.delete(id);
         return "delete";
     }
+
+    @PostMapping("/posts/{id}/like")
+    public void createLike(HttpSession httpSession, @PathVariable Long id) {
+        postService.likePost(httpSession, id);
+    }
+
 }

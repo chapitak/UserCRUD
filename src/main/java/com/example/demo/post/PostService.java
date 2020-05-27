@@ -6,6 +6,8 @@ import com.example.demo.user.User;
 import com.example.demo.user.UserService;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+
 // TODO: Service -> Controller로 변환되는 값들은 가급적 DTO!
 @Service
 public class PostService {
@@ -43,5 +45,17 @@ public class PostService {
 
     public void delete(Long id) {
         postRepository.delete(postRepository.getOne(id));
+    }
+
+    private Post findById(Long id) {
+        return postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 post 입니다."));
+    }
+
+    public void likePost(HttpSession httpSession, Long id) {
+        User loginUser = (User) httpSession.getAttribute("LOGIN_USER");
+        Post post = findById(id);
+        post.addLike(loginUser);
+        postRepository.save(post);
     }
 }
