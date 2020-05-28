@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 @Service
 public class PostService {
     private UserService userService;
-//    private Map<Long, Post> posts = new HashMap<>();
     private final PostRepository postRepository;
     private Long nextId = 0L;
 
@@ -34,8 +33,9 @@ public class PostService {
         return post;
     }
 
-    public Post read(Long id) {
-        return postRepository.getOne(id);
+    public Post findById(Long id) {
+        return postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 post 입니다."));
     }
 
     public void update(UpdatePostRequest updatePostRequest) {
@@ -45,11 +45,6 @@ public class PostService {
 
     public void delete(Long id) {
         postRepository.delete(postRepository.getOne(id));
-    }
-
-    private Post findById(Long id) {
-        return postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 post 입니다."));
     }
 
     public void likePost(HttpSession httpSession, Long id) {

@@ -7,11 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +17,17 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
+@EntityListeners(value = { AuditingEntityListener.class })
 public class Post {
     @Id
+    @Column(name = "POST_ID")
     private Long id;
     private String contents;
     @ManyToOne
     private User author;
     private int viewCount;
     @OneToMany(mappedBy = "post")
-    private List<LikeAction> likes;
+    private List<LikeAction> likes = new ArrayList<>();
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
@@ -46,7 +46,7 @@ public class Post {
     }
 
     public void addLike(User loginUser) {
-        likes.add(new LikeAction(this, loginUser));
+        likes.add(new LikeAction(id, this, loginUser));
 
     }
 }

@@ -15,15 +15,14 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/posts/{id}")
-    public Post get(@PathVariable Long id) {
-        System.out.println("id=" + id);
-        return postService.read(id);
-    }
-
     @PostMapping("posts")
     public Post createPost(@RequestBody CreatePostRequest createPostRequest) {
         return postService.create(createPostRequest);
+    }
+
+    @GetMapping("/posts/{id}")
+    public Post get(@PathVariable Long id) {
+        return postService.findById(id);
     }
 
     @PutMapping("posts")
@@ -32,9 +31,8 @@ public class PostController {
     }
 
     @DeleteMapping("/posts/{id}")
-    public String deletePost(@PathVariable Long id) {
+    public void deletePost(@PathVariable Long id) {
         postService.delete(id);
-        return "delete";
     }
 
     @PostMapping("/posts/{id}/like")

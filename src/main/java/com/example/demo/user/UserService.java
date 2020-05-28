@@ -9,12 +9,10 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
-//얘가 CRUD해야 한다. Controller와 만나는 지점이자 어떤 도메인이 수행할 비즈니스 로직이 존재하는 곳이다.
 @Getter
 @Service
 public class UserService {
     private UserRepository userRepository;
-//    private HashMap<Long, User> users = new HashMap<>();
     private Long nextId = 0L;
 
     public UserService(UserRepository userRepository) {
@@ -29,17 +27,9 @@ public class UserService {
                 .name(createUserRequest.getName())
                 .build();
         userRepository.save(newUser);
-//        users.put(newUser.getId(), newUser);
         nextId++;
 
         return getUserResponse(newUser);
-    }
-
-    private UserResponse getUserResponse(User newUser) {
-        return UserResponse.builder()
-                .email(newUser.getEmail())
-                .name(newUser.getName())
-                .build();
     }
 
     public User get(Long id) {
@@ -66,6 +56,13 @@ public class UserService {
         userRepository.delete(userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 ID의 사용자가 없습니다")));
     }
 
+    private UserResponse getUserResponse(User newUser) {
+        return UserResponse.builder()
+                .email(newUser.getEmail())
+                .name(newUser.getName())
+                .build();
+    }
+
     public void login(HttpSession httpSession, LoginRequest loginRequest){
         Object loginUserAttr = httpSession.getAttribute("LOGIN_USER");
         if (loginUserAttr == null) {
@@ -83,13 +80,13 @@ public class UserService {
         httpSession.setAttribute("LOGIN_USER", user);
 
     }
+    public void logout(HttpSession httpSession) {
+        httpSession.removeAttribute("LOGIN_USER");
+    }
 
     private User getByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("해당 ID의 사용자가 없습니다"));
     }
 
-    public void logout(HttpSession httpSession) {
-        httpSession.removeAttribute("LOGIN_USER");
-    }
 }
 

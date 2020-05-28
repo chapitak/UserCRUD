@@ -8,14 +8,16 @@ import java.security.NoSuchAlgorithmException;
 @NoArgsConstructor
 public class PasswordEncryptor {
 
+    public static final String SHA_256 = "SHA-256";
+    public static final String ENCRYPT_FAILURE = "there is no such algorithm";
 
     public static String encrypt(String password) {
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            MessageDigest messageDigest = MessageDigest.getInstance(SHA_256);
             messageDigest.update(messageDigest.digest());;
             return bytesToHex(messageDigest.digest());
         } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException("there is no salgorithm");
+            throw new IllegalArgumentException(ENCRYPT_FAILURE);
         }
     }
 
