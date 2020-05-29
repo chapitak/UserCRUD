@@ -38,6 +38,6 @@ public class User {
     }
 
     public boolean matchPassword(String encryptedPasswordQuery) {
-        return encryptedPasswordQuery.equals(PasswordEncryptor.encrypt(password));
+        return encryptedPasswordQuery.equals(password);
     }
 }

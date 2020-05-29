@@ -23,7 +23,7 @@ public class UserService {
         User newUser = User.builder()
                 .id(nextId)
                 .email(createUserRequest.getEmail())
-                .password(createUserRequest.getPassword())
+                .password(PasswordEncryptor.encrypt((createUserRequest.getPassword())))
                 .name(createUserRequest.getName())
                 .build();
         userRepository.save(newUser);
@@ -45,7 +45,7 @@ public class UserService {
                 .builder()
                 .id(updateUserRequest.getId())
                 .name((updateUserRequest.getName()))
-                .password(updateUserRequest.getPassword())
+                .password(PasswordEncryptor.encrypt(updateUserRequest.getPassword()))
                 .build();
         userRepository.save(newUser);
 

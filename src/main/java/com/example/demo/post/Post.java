@@ -26,7 +26,7 @@ public class Post {
     @ManyToOne
     private User author;
     private int viewCount;
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<LikeAction> likes = new ArrayList<>();
     @CreatedDate
     private LocalDateTime createdAt;
@@ -46,7 +46,9 @@ public class Post {
     }
 
     public void addLike(User loginUser) {
-        likes.add(new LikeAction(id, this, loginUser));
-
+        this.likes.add(LikeAction.builder()
+        .loginUser(loginUser)
+        .post(this)
+        .build());
     }
 }

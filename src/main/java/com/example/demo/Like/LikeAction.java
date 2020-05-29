@@ -2,9 +2,11 @@ package com.example.demo.Like;
 
 import com.example.demo.post.Post;
 import com.example.demo.user.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @NoArgsConstructor
+@EntityListeners(value = { AuditingEntityListener.class })
 public class LikeAction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +27,7 @@ public class LikeAction {
     @CreatedDate
     private LocalDateTime createdAt;
 
+    @Builder
     public LikeAction(Long id, Post post, User loginUser) {
         this.id = id;
         this.post = post;
