@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 @Service
 public class UserService {
     private UserRepository userRepository;
-    private Long nextId = 0L;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -21,13 +20,11 @@ public class UserService {
 
     public UserResponse create(CreateUserRequest createUserRequest) {
         User newUser = User.builder()
-                .id(nextId)
                 .email(createUserRequest.getEmail())
                 .password(PasswordEncryptor.encrypt((createUserRequest.getPassword())))
                 .name(createUserRequest.getName())
                 .build();
         userRepository.save(newUser);
-        nextId++;
 
         return getUserResponse(newUser);
     }

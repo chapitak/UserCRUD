@@ -2,7 +2,6 @@ package com.example.demo.post;
 
 import com.example.demo.post.dto.CreatePostRequest;
 import com.example.demo.post.dto.UpdatePostRequest;
-import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -16,8 +15,8 @@ public class PostController {
     }
 
     @PostMapping("posts")
-    public Post createPost(@RequestBody CreatePostRequest createPostRequest) {
-        return postService.create(createPostRequest);
+    public Post createPost(HttpSession httpSession, @RequestBody CreatePostRequest createPostRequest) {
+        return postService.create(httpSession, createPostRequest);
     }
 
     @GetMapping("/posts/{id}")

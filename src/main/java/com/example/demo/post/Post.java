@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,13 @@ import java.util.List;
 public class Post {
     @Id
     @Column(name = "POST_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String contents;
+    @NotNull
     @ManyToOne
     private User author;
-    private int viewCount;
+    private int viewCount = 0;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<LikeAction> likes = new ArrayList<>();
     @CreatedDate
@@ -38,7 +41,6 @@ public class Post {
         this.id = id;
         this.contents = contents;
         this.author = author;
-        this.viewCount = 0;
     }
 
     public static Post of(Long id, String contents, User author) {

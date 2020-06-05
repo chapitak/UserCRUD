@@ -13,23 +13,21 @@ import javax.servlet.http.HttpSession;
 public class PostService {
     private UserService userService;
     private final PostRepository postRepository;
-    private Long nextId = 0L;
 
     public PostService(UserService userService, PostRepository postRepository) {
         this.userService = userService;
         this.postRepository = postRepository;
     }
 
-    public Post create(CreatePostRequest createPostRequest) {
-        User author = userService.get(createPostRequest.getAuthorId());
+    public Post create(HttpSession httpSession, CreatePostRequest createPostRequest) {
+        User loginUser = (User) httpSession.getAttribute("LOGIN_USER");
+
         Post post = Post.builder()
-                .id(nextId)
                 .contents(createPostRequest.getContent())
-                .author(author)
+                .author(loginUser)
                 .build();
 
         postRepository.save(post);
-        nextId++;
         return post;
     }
 
