@@ -36,8 +36,14 @@ public class PostService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 post 입니다."));
     }
 
-    public void update(UpdatePostRequest updatePostRequest) {
-        Post newPost = Post.of(updatePostRequest.getId(), updatePostRequest.getContents(), updatePostRequest.getAuthor());
+    public void update(HttpSession httpSession, UpdatePostRequest updatePostRequest) {
+        User loginUser = (User) httpSession.getAttribute("LOGIN_USER");
+
+        Post newPost = Post.builder()
+                .id(updatePostRequest.getId())
+                .contents(updatePostRequest.getContents())
+                .author(loginUser)
+                .build();
         postRepository.save(newPost);
     }
 

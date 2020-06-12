@@ -6,7 +6,6 @@ import com.example.demo.user.dto.UpdateUserRequest;
 import com.example.demo.user.dto.UserResponse;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
 //유저와 관련된 모든 일들의 시작, View와 Controller가 만나는 지점이자, 어떤 도메인의 진입점이다.
@@ -38,6 +37,7 @@ public class UserController {
     public void deleteAllUsers(@PathVariable Long id) {
         userService.delete(id);
     }
+
     @PostMapping("users/login")
     public void login(HttpSession httpSession, @RequestBody LoginRequest loginRequest) {
         userService.login(httpSession, loginRequest);

@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/posts/0
+DELETE http://localhost:8080/posts/1
 Accept: application/json
 
 ###

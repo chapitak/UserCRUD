@@ -25,8 +25,8 @@ public class PostController {
     }
 
     @PutMapping("posts")
-    public void putPost(@RequestBody UpdatePostRequest updatePostRequest) {
-        postService.update(updatePostRequest);
+    public void putPost(HttpSession httpSession, @RequestBody UpdatePostRequest updatePostRequest) {
+        postService.update(httpSession, updatePostRequest);
     }
 
     @DeleteMapping("/posts/{id}")

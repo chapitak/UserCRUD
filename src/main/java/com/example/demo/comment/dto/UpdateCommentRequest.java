@@ -1,13 +1,13 @@
-package com.example.demo.post.dto;
+package com.example.demo.comment.dto;
 
 import lombok.Getter;
 
 @Getter
-public class UpdatePostRequest {
+public class UpdateCommentRequest {
     private long id;
     private String contents;
 
-    public UpdatePostRequest(long id, String contents) {
+    public UpdateCommentRequest(long id, String contents) {
         this.id = id;
         this.contents = contents;
     }
