@@ -1,5 +1,6 @@
 package com.example.demo.comment;
 
+import com.example.demo.comment.dto.CommentResponse;
 import com.example.demo.comment.dto.CreateCommentRequest;
 import com.example.demo.comment.dto.UpdateCommentRequest;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class CommentController {
     }
 
     @PostMapping("comments")
-    public Comment createComment(HttpSession httpSession, @RequestBody CreateCommentRequest createCommentRequest) {
+    public CommentResponse createComment(HttpSession httpSession, @RequestBody CreateCommentRequest createCommentRequest) {
         return commentService.create(httpSession, createCommentRequest);
     }
 

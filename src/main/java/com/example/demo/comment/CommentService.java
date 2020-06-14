@@ -1,5 +1,6 @@
 package com.example.demo.comment;
 
+import com.example.demo.comment.dto.CommentResponse;
 import com.example.demo.comment.dto.CreateCommentRequest;
 import com.example.demo.comment.dto.UpdateCommentRequest;
 import com.example.demo.post.Post;
@@ -23,9 +24,9 @@ public class CommentService {
         this.postRepository = postRepository;
     }
 
-    public Comment create(HttpSession httpSession, CreateCommentRequest createCommentRequest) {
+    public CommentResponse create(HttpSession httpSession, CreateCommentRequest createCommentRequest) {
         User loginUser = (User) httpSession.getAttribute("LOGIN_USER");
-        Post post = postRepository.getOne(createCommentRequest.getPostId());
+        Post post = postRepository.findById(createCommentRequest.getPostId()).orElseThrow(() -> new IllegalArgumentException("해당 ID의 포스트가 없습니다"));
 
         Comment comment = Comment.builder()
                 .contents(createCommentRequest.getContent())
@@ -33,7 +34,7 @@ public class CommentService {
                 .post(post)
                 .build();
         commentRepository.save(comment);
-        return comment;
+        return getCommentResponse(comment);
     }
 
     public void update(HttpSession httpSession, UpdateCommentRequest updateCommentRequest) {
@@ -54,5 +55,16 @@ public class CommentService {
     public List<Comment> getComments(Long postId) {
         commentRepository.findByPost(postRepository.findById(postId));
         return null;// commentRepository.find;
+    }
+
+    private CommentResponse getCommentResponse(Comment comment) {
+
+        return CommentResponse.builder()
+                .contents(comment.getContents())
+                .author(comment.getAuthor())
+                .post(comment.getPost())
+                .createdAt(comment.getCreatedAt())
+                .modifiedAt(comment.getModifiedAt())
+                .build();
     }
 }

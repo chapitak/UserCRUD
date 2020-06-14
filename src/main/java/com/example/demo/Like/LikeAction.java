@@ -24,7 +24,6 @@ public class LikeAction {
     @NotNull
     private User author;
     @ManyToOne
-    @JoinColumn(name="POST_ID")
     private Post post;
     @CreatedDate
     private LocalDateTime createdAt;

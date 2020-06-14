@@ -1,6 +1,7 @@
 package com.example.demo.post;
 
 import com.example.demo.Like.LikeAction;
+import com.example.demo.comment.Comment;
 import com.example.demo.user.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,7 +22,6 @@ import java.util.List;
 @EntityListeners(value = { AuditingEntityListener.class })
 public class Post {
     @Id
-    @Column(name = "POST_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String contents;
@@ -31,6 +31,8 @@ public class Post {
     private int viewCount = 0;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<LikeAction> likes = new ArrayList<>();
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate

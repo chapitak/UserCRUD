@@ -4,6 +4,8 @@ import com.example.demo.post.dto.CreatePostRequest;
 import com.example.demo.post.dto.UpdatePostRequest;
 import com.example.demo.user.User;
 import com.example.demo.user.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpSession;
 public class PostService {
     private UserService userService;
     private final PostRepository postRepository;
+    Logger log  = LoggerFactory.getLogger(PostService.class);
 
     public PostService(UserService userService, PostRepository postRepository) {
         this.userService = userService;
@@ -56,5 +59,6 @@ public class PostService {
         Post post = findById(id);
         post.addLike(loginUser);
         postRepository.save(post);
+        log.info("{}", post.getLikes());
     }
 }

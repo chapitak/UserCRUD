@@ -1,5 +1,7 @@
 package com.example.demo.user;
 
+import com.example.demo.comment.Comment;
+import com.example.demo.post.Post;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +11,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 //CRUD
 @Getter
@@ -22,6 +26,8 @@ public class User {
     private String email;
     private String password;
     private String name;
+    @OneToMany(mappedBy = "author")
+    private List<Post> posts = new ArrayList<>();
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
