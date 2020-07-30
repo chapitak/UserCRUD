@@ -3,6 +3,10 @@ package com.example.demo.post;
 import com.example.demo.Like.LikeAction;
 import com.example.demo.comment.Comment;
 import com.example.demo.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +31,7 @@ public class Post {
     private String contents;
     @NotNull
     @ManyToOne
+    @JsonIdentityInfo()
     private User author;
     private int viewCount = 0;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)

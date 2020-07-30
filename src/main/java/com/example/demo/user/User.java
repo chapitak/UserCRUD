@@ -2,6 +2,9 @@ package com.example.demo.user;
 
 import com.example.demo.comment.Comment;
 import com.example.demo.post.Post;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +30,7 @@ public class User {
     private String password;
     private String name;
     @OneToMany(mappedBy = "author")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class)
     private List<Post> posts = new ArrayList<>();
     @CreatedDate
     private LocalDateTime createdAt;

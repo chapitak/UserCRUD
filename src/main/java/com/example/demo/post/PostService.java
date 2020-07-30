@@ -22,7 +22,7 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public Post create(HttpSession httpSession, CreatePostRequest createPostRequest) {
+    public PostResponse create(HttpSession httpSession, CreatePostRequest createPostRequest) {
         User loginUser = (User) httpSession.getAttribute("LOGIN_USER");
 
         Post post = Post.builder()
@@ -31,7 +31,19 @@ public class PostService {
                 .build();
 
         postRepository.save(post);
-        return post;
+
+        PostResponse postResponse = PostResponse
+                .builder()
+                .id(post.getId())
+                .contents(post.getContents())
+                .author(post.getAuthor())
+                .viewCount(post.getViewCount())
+                .likes(post.getLikes())
+                .comments(post.getComments())
+                .createdAt(post.getCreatedAt())
+                .modifiedAt(post.getModifiedAt())
+                .build();
+        return postResponse;
     }
 
     public Post findById(Long id) {
@@ -60,5 +72,24 @@ public class PostService {
         post.addLike(loginUser);
         postRepository.save(post);
         log.info("{}", post.getLikes());
+    }
+
+    public PostResponse get(Long id) {
+        Post post =  postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 post 입니다."));
+
+        PostResponse postResponse = PostResponse
+                .builder()
+                .id(post.getId())
+                .contents(post.getContents())
+                .author(post.getAuthor())
+                .viewCount(post.getViewCount())
+                .likes(post.getLikes())
+                .comments(post.getComments())
+                .createdAt(post.getCreatedAt())
+                .modifiedAt(post.getModifiedAt())
+                .build();
+
+        return postResponse;
     }
 }

@@ -15,13 +15,13 @@ public class PostController {
     }
 
     @PostMapping("posts")
-    public Post createPost(HttpSession httpSession, @RequestBody CreatePostRequest createPostRequest) {
+    public PostResponse createPost(HttpSession httpSession, @RequestBody CreatePostRequest createPostRequest) {
         return postService.create(httpSession, createPostRequest);
     }
 
     @GetMapping("/posts/{id}")
-    public Post get(@PathVariable Long id) {
-        return postService.findById(id);
+    public PostResponse get(@PathVariable Long id) {
+        return postService.get(id);
     }
 
     @PutMapping("posts")
