@@ -38,15 +38,12 @@ public class UserService {
     }
 
     public UserResponse update(UpdateUserRequest updateUserRequest) {
-        User newUser = User
-                .builder()
-                .id(updateUserRequest.getId())
-                .name((updateUserRequest.getName()))
-                .password(PasswordEncryptor.encrypt(updateUserRequest.getPassword()))
-                .build();
-        userRepository.save(newUser);
+        User updatedUser = userRepository.findById(updateUserRequest.getId()).orElseThrow(() -> new IllegalArgumentException(("해당 ID의 사용자가 없습니다")));
+        updatedUser.updateName(updateUserRequest.getName());
+        updatedUser.updatePassword(PasswordEncryptor.encrypt(updateUserRequest.getPassword()));
+        userRepository.save(updatedUser);
 
-        return getUserResponse(newUser);
+        return getUserResponse(updatedUser);
     }
 
     public void delete(Long id) {

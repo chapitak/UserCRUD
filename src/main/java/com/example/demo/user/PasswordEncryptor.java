@@ -14,18 +14,17 @@ public class PasswordEncryptor {
     public static String encrypt(String password) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(SHA_256);
-            messageDigest.update(messageDigest.digest());;
+            messageDigest.update(messageDigest.digest(password.getBytes()));;
             return bytesToHex(messageDigest.digest());
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalArgumentException(ENCRYPT_FAILURE);
         }
     }
-
-    private static String bytesToHex(byte[] digest) {
-        StringBuilder builder = new StringBuilder();
-        for (byte b : digest) {
-            builder.append(String.format("02x", b));
-        }
-        return builder.toString();
-    }
+    private static String bytesToHex(byte[] bytes){
+		StringBuilder sb = new StringBuilder();
+		for(byte b : bytes){
+			sb.append(String.format("%02X", b&0xff));
+		}
+		return sb.toString();
+	}
 }

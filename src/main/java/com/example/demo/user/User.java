@@ -33,7 +33,7 @@ public class User {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-    @Builder
+    @Builder(toBuilder = true)
     private User(Long id, String email, String password, String name) {
         this.id = id;
         this.email = email;
@@ -43,5 +43,13 @@ public class User {
 
     public boolean matchPassword(String encryptedPasswordQuery) {
         return encryptedPasswordQuery.equals(password);
+    }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
     }
 }

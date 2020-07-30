@@ -4,7 +4,7 @@ Content-Type: application/json
 {}
 
 ###
-GET http://localhost:8080/users/0
+GET http://localhost:8080/users/2
 Accept: application/json
 
 ###
@@ -23,12 +23,13 @@ PUT http://localhost:8080/users
 Content-Type: application/json
 
 {
-  "id": 0,
-  "name": "조광일0"
+  "id": 2,
+  "name": "조광일0",
+  "password" : "12"
 }
 
 ###
-DELETE http://localhost:8080/users/0
+DELETE http://localhost:8080/users/1
 Accept: application/json
 
 ###
