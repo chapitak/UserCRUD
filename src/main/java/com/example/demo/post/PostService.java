@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 // TODO: Service -> Controller로 변환되는 값들은 가급적 DTO!
 @Service
@@ -60,6 +61,7 @@ public class PostService {
         return getPostResponse(deletedPost);
     }
 
+    @Transactional
     public void likePost(HttpSession httpSession, Long id) {
         User loginUser = (User) httpSession.getAttribute("LOGIN_USER");
         Post post = findById(id);

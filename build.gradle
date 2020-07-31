@@ -30,6 +30,7 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compile group: 'org.slf4j', name: 'slf4j-api'
+    implementation 'junit:junit:4.12'
 }
 
 test {
