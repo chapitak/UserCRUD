@@ -1,10 +1,8 @@
 package com.example.demo.user;
 
-import com.example.demo.comment.Comment;
 import com.example.demo.post.Post;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,10 +25,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
+    @JsonIgnore
     private String password;
     private String name;
     @OneToMany(mappedBy = "author")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class)
+    @JsonBackReference
     private List<Post> posts = new ArrayList<>();
     @CreatedDate
     private LocalDateTime createdAt;

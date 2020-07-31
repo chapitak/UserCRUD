@@ -5,6 +5,7 @@ import com.example.demo.comment.dto.CreateCommentRequest;
 import com.example.demo.comment.dto.UpdateCommentRequest;
 import com.example.demo.post.Post;
 import com.example.demo.post.PostRepository;
+import com.example.demo.post.PostService;
 import com.example.demo.user.User;
 import com.example.demo.user.UserService;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,8 @@ import java.util.List;
 public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
-    private UserService userService;
 
-    public CommentService(UserService userService, CommentRepository commentRepository, PostRepository postRepository) {
-        this.userService = userService;
+    public CommentService(CommentRepository commentRepository, PostRepository postRepository) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
     }
@@ -53,8 +52,8 @@ public class CommentService {
     }
 
     public List<Comment> getComments(Long postId) {
-        commentRepository.findByPost(postRepository.findById(postId));
-        return null;// commentRepository.find;
+        return commentRepository.findByPost(postRepository.findById(postId));
+//        return null;// commentRepository.find;
     }
 
     private CommentResponse getCommentResponse(Comment comment) {

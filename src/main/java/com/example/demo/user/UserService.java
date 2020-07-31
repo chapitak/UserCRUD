@@ -50,7 +50,7 @@ public class UserService {
         userRepository.delete(userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 ID의 사용자가 없습니다")));
     }
 
-    private UserResponse getUserResponse(User newUser) {
+    public UserResponse getUserResponse(User newUser) {
         return UserResponse.builder()
                 .email(newUser.getEmail())
                 .name(newUser.getName())

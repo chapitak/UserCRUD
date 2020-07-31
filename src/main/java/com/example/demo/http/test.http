@@ -48,4 +48,10 @@ Content-Type: application/json
   "postId": "1"
 }
 
+
 ###
+GET http://localhost:8080/posts/1/comments
+Accept: application/json
+
+###
+

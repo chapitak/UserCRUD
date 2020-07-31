@@ -2,6 +2,7 @@ package com.example.demo.comment;
 
 import com.example.demo.post.Post;
 import com.example.demo.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class Comment {
     @ManyToOne
     private User author;
     @ManyToOne
+    @JsonBackReference
     private Post post;
     @CreatedDate
     private LocalDateTime createdAt;

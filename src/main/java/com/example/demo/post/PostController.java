@@ -25,18 +25,17 @@ public class PostController {
     }
 
     @PutMapping("posts")
-    public void putPost(HttpSession httpSession, @RequestBody UpdatePostRequest updatePostRequest) {
-        postService.update(httpSession, updatePostRequest);
+    public PostResponse putPost(HttpSession httpSession, @RequestBody UpdatePostRequest updatePostRequest) {
+        return postService.update(httpSession, updatePostRequest);
     }
 
     @DeleteMapping("/posts/{id}")
-    public void deletePost(@PathVariable Long id) {
-        postService.delete(id);
+    public PostResponse deletePost(@PathVariable Long id) {
+        return postService.delete(id);
     }
 
     @PostMapping("/posts/{id}/like")
     public void createLike(HttpSession httpSession, @PathVariable Long id) {
         postService.likePost(httpSession, id);
     }
-
 }

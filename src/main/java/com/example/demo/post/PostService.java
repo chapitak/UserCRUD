@@ -32,17 +32,7 @@ public class PostService {
 
         postRepository.save(post);
 
-        PostResponse postResponse = PostResponse
-                .builder()
-                .id(post.getId())
-                .contents(post.getContents())
-                .author(post.getAuthor())
-                .viewCount(post.getViewCount())
-                .likes(post.getLikes())
-                .comments(post.getComments())
-                .createdAt(post.getCreatedAt())
-                .modifiedAt(post.getModifiedAt())
-                .build();
+        PostResponse postResponse = getPostResponse(post);
         return postResponse;
     }
 
@@ -51,7 +41,7 @@ public class PostService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 post 입니다."));
     }
 
-    public void update(HttpSession httpSession, UpdatePostRequest updatePostRequest) {
+    public PostResponse update(HttpSession httpSession, UpdatePostRequest updatePostRequest) {
         User loginUser = (User) httpSession.getAttribute("LOGIN_USER");
 
         Post newPost = Post.builder()
@@ -60,10 +50,14 @@ public class PostService {
                 .author(loginUser)
                 .build();
         postRepository.save(newPost);
+        return getPostResponse(newPost);
     }
 
-    public void delete(Long id) {
+    public PostResponse delete(Long id) {
+        Post deletedPost = postRepository.getOne(id);
         postRepository.delete(postRepository.getOne(id));
+
+        return getPostResponse(deletedPost);
     }
 
     public void likePost(HttpSession httpSession, Long id) {
@@ -78,8 +72,12 @@ public class PostService {
         Post post =  postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 post 입니다."));
 
-        PostResponse postResponse = PostResponse
-                .builder()
+        PostResponse postResponse = getPostResponse(post);
+        return postResponse;
+    }
+
+    public PostResponse getPostResponse(Post post) {
+        PostResponse postResponse = PostResponse.builder()
                 .id(post.getId())
                 .contents(post.getContents())
                 .author(post.getAuthor())
