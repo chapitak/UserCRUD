@@ -1,6 +1,6 @@
 package com.example.demo.post;
 
-import com.example.demo.Like.LikeAction;
+import com.example.demo.like.LikeAction;
 import com.example.demo.comment.Comment;
 import com.example.demo.user.User;
 import lombok.Builder;

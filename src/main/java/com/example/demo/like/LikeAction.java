@@ -1,4 +1,4 @@
-package com.example.demo.Like;
+package com.example.demo.like;
 
 import com.example.demo.post.Post;
 import com.example.demo.user.User;
