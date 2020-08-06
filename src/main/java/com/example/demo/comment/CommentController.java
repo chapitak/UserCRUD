@@ -27,8 +27,8 @@ public class CommentController {
     }
 
     @DeleteMapping("/comments/{id}")
-    public void deleteComment(@PathVariable Long id) {
-        commentService.delete(id);
+    public void deleteComment(HttpSession httpSession, @PathVariable Long id) {
+        commentService.delete(httpSession, id);
     }
 
     @GetMapping("/posts/{postId}/comments")

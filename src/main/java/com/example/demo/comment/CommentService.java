@@ -5,9 +5,7 @@ import com.example.demo.comment.dto.CreateCommentRequest;
 import com.example.demo.comment.dto.UpdateCommentRequest;
 import com.example.demo.post.Post;
 import com.example.demo.post.PostRepository;
-import com.example.demo.post.PostService;
 import com.example.demo.user.User;
-import com.example.demo.user.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -38,6 +36,8 @@ public class CommentService {
 
     public void update(HttpSession httpSession, UpdateCommentRequest updateCommentRequest) {
         User loginUser = (User) httpSession.getAttribute("LOGIN_USER");
+        Comment comment = commentRepository.findById(updateCommentRequest.getId()).orElseThrow(() -> new IllegalArgumentException("해당 comment가 없습니다"));
+        validateUser(loginUser, comment);
 
         Comment newComment = Comment.builder()
                 .id(updateCommentRequest.getId())
@@ -47,13 +47,20 @@ public class CommentService {
         commentRepository.save(newComment);
     }
 
-    public void delete(Long id) {
+    private void validateUser(User loginUser, Comment comment) {
+        if (!loginUser.equals(commentRepository.findById(comment.getId()))) {
+            throw new IllegalArgumentException("comment를 삭제할 권한이 없습니다");
+        }
+    }
+
+    public void delete(HttpSession httpSession, Long id) {
+        User loginUser = (User) httpSession.getAttribute("LOGIN_USER");
+        validateUser(loginUser, commentRepository.getOne(id));
         commentRepository.delete(commentRepository.getOne(id));
     }
 
     public List<Comment> getComments(Long postId) {
         return commentRepository.findByPost(postRepository.findById(postId));
-//        return null;// commentRepository.find;
     }
 
     private CommentResponse getCommentResponse(Comment comment) {
