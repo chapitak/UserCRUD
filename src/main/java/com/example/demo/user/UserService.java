@@ -8,6 +8,7 @@ import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Getter
 @Service
@@ -82,5 +83,8 @@ public class UserService {
         return userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("해당 ID의 사용자가 없습니다"));
     }
 
+    private List<User> findUsersByName(List<String> userNames) {
+        return userRepository.findByEmployeeNameIn(userNames);
+    }
 }
 
